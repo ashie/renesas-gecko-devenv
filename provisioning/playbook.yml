@@ -65,6 +65,7 @@
         version: 12993e6bc8658ee37d303d8d59007f8dd9ab2b30
         dest: ~/rzg1-bsp/meta-linaro
         accept_hostkey: yes
+        force: yes
 
     - name: Fetch meta-renesas (cip-dev)
       git:
@@ -86,3 +87,10 @@
         version: firefox-60-wip
         dest: ~/rzg1-bsp/meta-browser
         accept_hostkey: yes
+
+    - name: Fix URL of gcc-linaro-4.9
+      replace:
+        path: ~/rzg1-bsp/meta-linaro/meta-linaro-toolchain/recipes-devtools/gcc/gcc-linaro-4.9.inc
+        regexp: 'https:\/\/releases.linaro.org\/\$\{MMYY\}'
+        replace: 'https://releases.linaro.org/archive/${MMYY}'
+        backup: yes
