@@ -94,3 +94,18 @@
         regexp: 'https:\/\/releases.linaro.org\/\$\{MMYY\}'
         replace: 'https://releases.linaro.org/archive/${MMYY}'
         backup: yes
+
+    - name: Make build directory
+      file:
+        path: ~/rzg1-bsp/build/{{item}}
+        state: directory
+      with_items:
+        - conf
+
+    - name: Copy build config files
+      copy:
+        src: files/conf/{{item}}
+        dest: ~/rzg1-bsp/build/conf/{{item}}
+      with_items:
+        - bblayers.conf
+        - local.conf
