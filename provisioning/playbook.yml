@@ -70,7 +70,7 @@
     - name: Fetch meta-browser
       git:
         repo: https://github.com/webdino/meta-browser.git
-        version: firefox-60-dev
+        version: firefox-60-wip
         dest: ~/rzg1-bsp/meta-browser
         accept_hostkey: yes
       sudo: false
