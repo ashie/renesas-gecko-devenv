@@ -1,11 +1,12 @@
 ---
 - hosts: vagrants
-  sudo: true
   user: vagrant
+  become: no
   gather_facts: no
   pre_tasks:
     - name: 'install python2'
       raw: apt-get --yes install python
+      become: yes
   tasks:
     - name: Install base build tools for Yocto
       apt: name={{item}} update_cache=yes
@@ -21,11 +22,28 @@
         - chrpath
         - socat
         - libsdl1.2-dev
+      become: yes
 
-    - name: Install additional build tools for Firefox on Yocto
+    - name: Install additional tools for building Firefox 52 on Yocto
       apt: name={{item}} update_cache=yes
       with_items:
         - autoconf2.13
+      become: yes
+
+    - name: Install additional tools for building Firefox 60 on Yocto
+      apt: name={{item}} update_cache=yes
+      with_items:
+        - clang
+        - llvm
+      become: yes
+
+    - name: Install rust by rustup
+      shell: curl https://sh.rustup.rs -sSf | sh -s -- -y
+
+    - name: Install rust targets
+      shell: ~/.cargo/bin/rustup target add {{ item }}
+      with_items:
+        - armv7-unknown-linux-gnueabihf
 
     - name: Fetch poky
       git:
@@ -33,7 +51,6 @@
         version: 3b223f75eec1738fbc913858e8e11c8305e3edcb
         dest: ~/rzg1-bsp/poky
         accept_hostkey: yes
-      sudo: false
 
     - name: Fetch meta-openembedded
       git:
@@ -41,7 +58,6 @@
         version: dc5634968b270dde250690609f0015f881db81f2
         dest: ~/rzg1-bsp/meta-openembedded
         accept_hostkey: yes
-      sudo: false
 
     - name: Fetch meta-linaro
       git:
@@ -49,7 +65,6 @@
         version: 12993e6bc8658ee37d303d8d59007f8dd9ab2b30
         dest: ~/rzg1-bsp/meta-linaro
         accept_hostkey: yes
-      sudo: false
 
     - name: Fetch meta-renesas (cip-dev)
       git:
@@ -57,7 +72,6 @@
         version: certified-linux-v2.0.2
         dest: ~/rzg1-bsp/meta-renesas
         accept_hostkey: yes
-      sudo: false
 
     - name: Fetch meta-gecko-embedded
       git: 
@@ -65,7 +79,6 @@
         version: master
         dest: ~/rzg1-bsp/meta-gecko-embedded
         accept_hostkey: yes
-      sudo: false
 
     - name: Fetch meta-browser
       git:
@@ -73,4 +86,3 @@
         version: firefox-60-wip
         dest: ~/rzg1-bsp/meta-browser
         accept_hostkey: yes
-      sudo: false
