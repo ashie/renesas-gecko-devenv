@@ -35,6 +35,8 @@
       with_items:
         - clang
         - llvm
+        - clang-3.9
+        - llvm-3.9
       become: yes
 
     - name: Install rust by rustup
