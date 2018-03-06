@@ -69,7 +69,7 @@
         accept_hostkey: yes
         force: yes
 
-    - name: Fetch meta-renesas (cip-dev)
+    - name: Fetch meta-renesas (certified-linux-v2.0.2)
       git:
         repo: https://github.com/renesas-rz/meta-renesas.git
         version: certified-linux-v2.0.2
