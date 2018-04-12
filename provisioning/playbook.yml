@@ -45,14 +45,6 @@
         - emacs
       become: yes
 
-    - name: Install rust by rustup
-      shell: curl https://sh.rustup.rs -sSf | sh -s -- -y
-
-    - name: Install rust targets
-      shell: ~/.cargo/bin/rustup target add {{ item }}
-      with_items:
-        - armv7-unknown-linux-gnueabihf
-
     - name: Fetch poky
       git:
         repo: git://git.yoctoproject.org/poky
@@ -85,7 +77,7 @@
     - name: Fetch meta-gecko-embedded
       git: 
         repo: https://github.com/mozilla-japan/meta-gecko-embedded.git
-        version: master
+        version: jethro-esr60
         dest: ~/rzg1-bsp/meta-gecko-embedded
         accept_hostkey: yes
 
@@ -94,6 +86,13 @@
         repo: https://github.com/webdino/meta-browser.git
         version: firefox-60-wip
         dest: ~/rzg1-bsp/meta-browser
+        accept_hostkey: yes
+
+    - name: Fetch meta-rust
+      git:
+        repo: https://github.com/webdino/meta-rust.git
+        version: jethro-14.0.1_rust_1.24.1
+        dest: ~/rzg1-bsp/meta-rust
         accept_hostkey: yes
 
     - name: Fix URL of gcc-linaro-4.9
