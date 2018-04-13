@@ -20,6 +20,7 @@ Vagrant.configure("2") do |config|
     #vb.gui = true
     vb.cpus = "4"
     vb.memory = "8192"
+    vb.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
   end
 
   config.vm.provision "ansible" do |ansible|
