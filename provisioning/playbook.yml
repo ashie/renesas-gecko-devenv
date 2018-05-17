@@ -75,16 +75,16 @@
         accept_hostkey: yes
 
     - name: Fetch meta-gecko-embedded
-      git: 
+      git:
         repo: https://github.com/mozilla-japan/meta-gecko-embedded.git
-        version: jethro-esr60
+        version: master
         dest: ~/rzg1-bsp/meta-gecko-embedded
         accept_hostkey: yes
 
     - name: Fetch meta-browser
       git:
         repo: https://github.com/webdino/meta-browser.git
-        version: firefox-60-wip
+        version: firefox-60esr
         dest: ~/rzg1-bsp/meta-browser
         accept_hostkey: yes
 
