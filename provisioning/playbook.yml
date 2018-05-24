@@ -13,7 +13,7 @@
       with_items:
         - gawk
         - wget
-        - git-core 
+        - git-core
         - diffstat
         - unzip
         - texinfo
@@ -48,63 +48,56 @@
     - name: Fetch poky
       git:
         repo: git://git.yoctoproject.org/poky
-        version: 3b223f75eec1738fbc913858e8e11c8305e3edcb
-        dest: ~/rzg1-bsp/poky
+        version: 342fbd6a3e57021c8e28b124b3adb241936f3d9d
+        dest: ~/rcar-gen3/poky
         accept_hostkey: yes
 
     - name: Fetch meta-openembedded
       git:
         repo: git://git.openembedded.org/meta-openembedded
-        version: dc5634968b270dde250690609f0015f881db81f2
-        dest: ~/rzg1-bsp/meta-openembedded
+        version: dacfa2b1920e285531bec55cd2f08743390aaf57
+        dest: ~/rcar-gen3/meta-openembedded
         accept_hostkey: yes
 
     - name: Fetch meta-linaro
       git:
         repo: git://git.linaro.org/openembedded/meta-linaro.git
-        version: 12993e6bc8658ee37d303d8d59007f8dd9ab2b30
-        dest: ~/rzg1-bsp/meta-linaro
+        version: 75dfb67bbb14a70cd47afda9726e2e1c76731885
+        dest: ~/rcar-gen3/meta-linaro
         accept_hostkey: yes
         force: yes
 
-    - name: Fetch meta-renesas (certified-linux-v2.0.2)
+    - name: Fetch meta-renesas (R-Car)
       git:
-        repo: https://github.com/renesas-rz/meta-renesas.git
-        version: certified-linux-v2.0.2
-        dest: ~/rzg1-bsp/meta-renesas
+        repo: https://github.com/renesas-rcar/meta-renesas.git
+        version: d50e055494cea5de0a348c15ee27cb67a3542e0b
+        dest: ~/rcar-gen3/meta-renesas
         accept_hostkey: yes
 
     - name: Fetch meta-gecko-embedded
       git:
-        repo: https://github.com/mozilla-japan/meta-gecko-embedded.git
+        repo: https://github.com/webdino/meta-gecko-embedded.git
         version: master
-        dest: ~/rzg1-bsp/meta-gecko-embedded
+        dest: ~/rcar-gen3/meta-gecko-embedded
         accept_hostkey: yes
 
     - name: Fetch meta-browser
       git:
         repo: https://github.com/webdino/meta-browser.git
         version: firefox-60esr
-        dest: ~/rzg1-bsp/meta-browser
+        dest: ~/rcar-gen3/meta-browser
         accept_hostkey: yes
 
     - name: Fetch meta-rust
       git:
         repo: https://github.com/webdino/meta-rust.git
         version: jethro-14.0.1_rust_1.24.1
-        dest: ~/rzg1-bsp/meta-rust
+        dest: ~/rcar-gen3/meta-rust
         accept_hostkey: yes
-
-    - name: Fix URL of gcc-linaro-4.9
-      replace:
-        path: ~/rzg1-bsp/meta-linaro/meta-linaro-toolchain/recipes-devtools/gcc/gcc-linaro-4.9.inc
-        regexp: 'https:\/\/releases.linaro.org\/\$\{MMYY\}'
-        replace: 'https://releases.linaro.org/archive/${MMYY}'
-        backup: yes
 
     - name: Make build directory
       file:
-        path: ~/rzg1-bsp/build/{{item}}
+        path: ~/rcar-gen3/build/{{item}}
         state: directory
       with_items:
         - conf
@@ -112,7 +105,7 @@
     - name: Copy build config files
       copy:
         src: files/conf/{{item}}
-        dest: ~/rzg1-bsp/build/conf/{{item}}
+        dest: ~/rcar-gen3/build/conf/{{item}}
       with_items:
         - bblayers.conf
         - local.conf
