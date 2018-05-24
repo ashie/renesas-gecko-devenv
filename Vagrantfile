@@ -14,12 +14,12 @@ Vagrant.configure("2") do |config|
 
   # config.vm.synced_folder "../data", "/vagrant_data"
 
-  config.disksize.size = "100GB"
+  config.disksize.size = "180GB"
 
   config.vm.provider "virtualbox" do |vb|
     #vb.gui = true
     vb.cpus = "4"
-    vb.memory = "8192"
+    vb.memory = "16384"
     vb.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
   end
 
